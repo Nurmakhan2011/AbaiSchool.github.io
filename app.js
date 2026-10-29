@@ -1,251 +1,401 @@
 'use strict';
 
-/* Темы: номера используются в адресах вида topic.html?topic=0 */
+/* 19 тем — порядок должен совпадать с порядком тем в списке. */
 const topics = [
-  {
-    group: 'algebra',
-    ru: 'Выражения, формулы сокращённого умножения и разложение на множители',
-    kk: 'Өрнектер, қысқаша көбейту формулалары және көбейткіштерге жіктеу',
-    en: 'Expressions, identities and factorisation',
-    lesson: 'Раскрывайте скобки по распределительному закону: a(b + c) = ab + ac. Формула квадрата суммы: (a + b)² = a² + 2ab + b². Разность квадратов: a² − b² = (a − b)(a + b).'
-  },
-  {
-    group: 'algebra',
-    ru: 'Уравнения, неравенства и их системы',
-    kk: 'Теңдеулер, теңсіздіктер және олардың жүйелері',
-    en: 'Equations, inequalities and systems',
-    lesson: 'Переносите слагаемые через знак равенства с изменением знака. При умножении неравенства на отрицательное число знак неравенства меняется на противоположный.'
-  },
-  {
-    group: 'algebra',
-    ru: 'Функции и графики',
-    kk: 'Функциялар және графиктер',
-    en: 'Functions and graphs',
-    lesson: 'Функция задаёт соответствие между аргументом x и значением y. В линейной функции y = kx + b число k задаёт наклон, а b — пересечение с осью y.'
-  },
-  {
-    group: 'algebra',
-    ru: 'Квадратные уравнения и квадратичная функция',
-    kk: 'Квадрат теңдеулер және квадраттық функция',
-    en: 'Quadratic equations and functions',
-    lesson: 'Для ax² + bx + c = 0 дискриминант D = b² − 4ac. Если D > 0 — два корня, D = 0 — один корень, D < 0 — действительных корней нет.'
-  },
-  {
-    group: 'algebra',
-    ru: 'Степени, корни и дробные выражения',
-    kk: 'Дәрежелер, түбірлер және бөлшек өрнектер',
-    en: 'Powers, roots and fractions',
-    lesson: 'При умножении степеней с одинаковым основанием показатели складываются: aᵐ · aⁿ = aᵐ⁺ⁿ. Знаменатель дроби не может быть равен нулю.'
-  },
-  {
-    group: 'algebra',
-    ru: 'Прогрессии',
-    kk: 'Прогрессиялар',
-    en: 'Sequences',
-    lesson: 'В арифметической прогрессии каждый следующий член отличается на одно и то же число d. Формула n-го члена: aₙ = a₁ + d(n − 1).'
-  },
-  {
-    group: 'algebra',
-    ru: 'Тригонометрические функции и уравнения',
-    kk: 'Тригонометриялық функциялар және теңдеулер',
-    en: 'Trigonometric functions and equations',
-    lesson: 'Основное тождество: sin²x + cos²x = 1. Запоминайте значения синуса и косинуса для углов 0°, 30°, 45°, 60° и 90°.'
-  },
-  {
-    group: 'algebra',
-    ru: 'Показательные и логарифмические функции, уравнения',
-    kk: 'Көрсеткіштік және логарифмдік функциялар',
-    en: 'Exponential and logarithmic functions',
-    lesson: 'Логарифм logₐ b — это показатель степени, в которую нужно возвести a, чтобы получить b. Основание логарифма должно быть положительным и не равным 1.'
-  },
-  {
-    group: 'algebra',
-    ru: 'Производная и её применение',
-    kk: 'Туынды және оның қолданылуы',
-    en: 'Derivatives and applications',
-    lesson: 'Производная показывает скорость изменения функции. Производная xⁿ равна nxⁿ⁻¹. Если производная положительна, функция возрастает.'
-  },
-  {
-    group: 'algebra',
-    ru: 'Вероятность и статистика',
-    kk: 'Ықтималдық және статистика',
-    en: 'Probability and statistics',
-    lesson: 'Вероятность события равна отношению числа подходящих исходов к числу всех равновозможных исходов. Среднее значение — сумма чисел, делённая на их количество.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Углы, прямые и треугольники',
-    kk: 'Бұрыштар, түзулер және үшбұрыштар',
-    en: 'Angles, lines and triangles',
-    lesson: 'Сумма углов треугольника равна 180°. Смежные углы в сумме дают 180°, вертикальные углы равны.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Равенство и подобие треугольников',
-    kk: 'Үшбұрыштардың теңдігі және ұқсастығы',
-    en: 'Congruent and similar triangles',
-    lesson: 'У подобных треугольников соответствующие углы равны, а стороны пропорциональны. Коэффициент подобия показывает, во сколько раз отличаются соответствующие стороны.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Четырёхугольники и их свойства',
-    kk: 'Төртбұрыштар және олардың қасиеттері',
-    en: 'Quadrilaterals and their properties',
-    lesson: 'Сумма внутренних углов четырёхугольника равна 360°. У параллелограмма противоположные стороны равны и параллельны.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Площади фигур и теорема Пифагора',
-    kk: 'Фигуралардың аудандары және Пифагор теоремасы',
-    en: 'Areas and the Pythagorean theorem',
-    lesson: 'Для прямоугольного треугольника c² = a² + b², где c — гипотенуза. Площадь прямоугольника равна произведению его сторон.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Окружность и круг',
-    kk: 'Шеңбер және дөңгелек',
-    en: 'Circles and disks',
-    lesson: 'Длина окружности C = 2πr, площадь круга S = πr². Диаметр равен двум радиусам.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Векторы и координаты',
-    kk: 'Векторлар және координаталар',
-    en: 'Vectors and coordinates',
-    lesson: 'Координаты вектора AB: (x₂ − x₁; y₂ − y₁). Длина вектора с координатами (x; y) равна √(x² + y²).'
-  },
-  {
-    group: 'geometry',
-    ru: 'Прямые и плоскости в пространстве',
-    kk: 'Кеңістіктегі түзулер мен жазықтықтар',
-    en: 'Lines and planes in space',
-    lesson: 'В пространстве прямые могут пересекаться, быть параллельными или скрещиваться. Скрещивающиеся прямые не пересекаются и не лежат в одной плоскости.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Призмы, пирамиды и их объёмы',
-    kk: 'Призмалар, пирамидалар және олардың көлемдері',
-    en: 'Prisms, pyramids and volumes',
-    lesson: 'Объём призмы равен площади основания, умноженной на высоту: V = Sоснh. Объём пирамиды: V = ⅓Sоснh.'
-  },
-  {
-    group: 'geometry',
-    ru: 'Цилиндр, конус и шар: площади и объёмы',
-    kk: 'Цилиндр, конус және шар: аудандары мен көлемдері',
-    en: 'Cylinder, cone and sphere',
-    lesson: 'Объём цилиндра V = πr²h. Объём конуса V = ⅓πr²h. Объём шара V = ⁴⁄₃πr³.'
-  }
+  { group: 'algebra', ru: 'Выражения, формулы сокращённого умножения и разложение на множители', kk: 'Өрнектер және көбейткіштерге жіктеу', en: 'Expressions and factorisation', lesson: 'Формулы: (a + b)² = a² + 2ab + b²; a² − b² = (a − b)(a + b). Раскрывайте скобки по распределительному закону.' },
+  { group: 'algebra', ru: 'Уравнения, неравенства и их системы', kk: 'Теңдеулер, теңсіздіктер және жүйелер', en: 'Equations, inequalities and systems', lesson: 'При решении уравнения выполняйте одинаковые действия с обеими частями. Если умножаете или делите неравенство на отрицательное число, поменяйте его знак.' },
+  { group: 'algebra', ru: 'Функции и графики', kk: 'Функциялар және графиктер', en: 'Functions and graphs', lesson: 'Линейная функция имеет вид y = kx + b. Подставьте значение x, чтобы найти y. Коэффициент k задаёт наклон графика.' },
+  { group: 'algebra', ru: 'Квадратные уравнения и квадратичная функция', kk: 'Квадрат теңдеулер және квадраттық функция', en: 'Quadratic equations and functions', lesson: 'Для ax² + bx + c = 0 дискриминант D = b² − 4ac. Если уравнение разложено на множители, каждый множитель можно приравнять к нулю.' },
+  { group: 'algebra', ru: 'Степени, корни и дробные выражения', kk: 'Дәрежелер, түбірлер және бөлшектер', en: 'Powers, roots and fractions', lesson: 'При умножении степеней с одинаковым основанием показатели складываются. Квадратный корень из a² равен |a|. Знаменатель дроби не должен быть равен нулю.' },
+  { group: 'algebra', ru: 'Прогрессии', kk: 'Прогрессиялар', en: 'Sequences', lesson: 'В арифметической прогрессии aₙ = a₁ + d(n − 1), где d — разность между соседними членами.' },
+  { group: 'algebra', ru: 'Тригонометрические функции и уравнения', kk: 'Тригонометриялық функциялар және теңдеулер', en: 'Trigonometric functions and equations', lesson: 'Основное тождество: sin²x + cos²x = 1. Повторите табличные значения синуса и косинуса для углов 0°, 30°, 45°, 60° и 90°.' },
+  { group: 'algebra', ru: 'Показательные и логарифмические функции, уравнения', kk: 'Көрсеткіштік және логарифмдік функциялар', en: 'Exponential and logarithmic functions', lesson: 'Логарифм logₐb — это показатель степени, в которую нужно возвести a, чтобы получить b. Например, log₂8 = 3.' },
+  { group: 'algebra', ru: 'Производная и её применение', kk: 'Туынды және оның қолданылуы', en: 'Derivatives and applications', lesson: 'Производная xⁿ равна nxⁿ⁻¹. Она показывает скорость изменения функции. Если производная положительна, функция возрастает.' },
+  { group: 'algebra', ru: 'Вероятность и статистика', kk: 'Ықтималдық және статистика', en: 'Probability and statistics', lesson: 'Вероятность равна отношению благоприятных исходов к общему числу равновозможных исходов. Среднее арифметическое — сумма чисел, делённая на их количество.' },
+  { group: 'geometry', ru: 'Углы, прямые и треугольники', kk: 'Бұрыштар, түзулер және үшбұрыштар', en: 'Angles, lines and triangles', lesson: 'Сумма углов треугольника равна 180°. Смежные углы в сумме дают 180°, вертикальные углы равны.' },
+  { group: 'geometry', ru: 'Равенство и подобие треугольников', kk: 'Үшбұрыштардың теңдігі және ұқсастығы', en: 'Congruent and similar triangles', lesson: 'У подобных треугольников соответствующие углы равны, а стороны пропорциональны. Коэффициент подобия показывает отношение соответствующих сторон.' },
+  { group: 'geometry', ru: 'Четырёхугольники и их свойства', kk: 'Төртбұрыштар және олардың қасиеттері', en: 'Quadrilaterals and their properties', lesson: 'Сумма внутренних углов четырёхугольника равна 360°. У параллелограмма противоположные стороны и углы равны.' },
+  { group: 'geometry', ru: 'Площади фигур и теорема Пифагора', kk: 'Фигуралардың аудандары және Пифагор теоремасы', en: 'Areas and the Pythagorean theorem', lesson: 'Для прямоугольного треугольника c² = a² + b². Площадь прямоугольника равна ab, треугольника — ah/2.' },
+  { group: 'geometry', ru: 'Окружность и круг', kk: 'Шеңбер және дөңгелек', en: 'Circles and disks', lesson: 'Длина окружности C = 2πr. Площадь круга S = πr². Диаметр равен двум радиусам.' },
+  { group: 'geometry', ru: 'Векторы и координаты', kk: 'Векторлар және координаталар', en: 'Vectors and coordinates', lesson: 'Координаты вектора AB: (x₂ − x₁; y₂ − y₁). Длина вектора (x; y) равна √(x² + y²).' },
+  { group: 'geometry', ru: 'Прямые и плоскости в пространстве', kk: 'Кеңістіктегі түзулер мен жазықтықтар', en: 'Lines and planes in space', lesson: 'В пространстве прямые могут пересекаться, быть параллельными или скрещиваться. Скрещивающиеся прямые не пересекаются и не лежат в одной плоскости.' },
+  { group: 'geometry', ru: 'Призмы, пирамиды и их объёмы', kk: 'Призмалар, пирамидалар және көлемдері', en: 'Prisms, pyramids and volumes', lesson: 'Объём призмы V = Sоснh. Объём пирамиды V = ⅓Sоснh.' },
+  { group: 'geometry', ru: 'Цилиндр, конус и шар: площади и объёмы', kk: 'Цилиндр, конус және шар', en: 'Cylinder, cone and sphere', lesson: 'Объём цилиндра V = πr²h, конуса V = ⅓πr²h, шара V = ⁴⁄₃πr³.' }
 ];
 
 /*
- * Это демонстрационный набор из 15 вопросов.
- * Для полноценной диагностики добавьте отдельный набор заданий для каждой темы.
+ * Каждый генератор ниже создаёт 15 заданий для своей темы.
+ * Порядок вариантов меняется, поэтому правильный ответ не всегда первым.
  */
-const questions = [
-  { q: 'Упростите: 3x + 2x', a: ['5x', '6x', '5x²', 'x'], c: 0, why: 'Складываем коэффициенты подобных слагаемых: 3 + 2 = 5, значит 5x.' },
-  { q: 'Решите: x + 7 = 12', a: ['x = 5', 'x = 19', 'x = 7', 'x = 4'], c: 0, why: 'Вычтем 7 из обеих частей: x = 12 − 7 = 5.' },
-  { q: 'Чему равна площадь прямоугольника со сторонами 4 и 6?', a: ['24', '20', '10', '12'], c: 0, why: 'Площадь прямоугольника равна произведению сторон: 4 · 6 = 24.' },
-  { q: 'Чему равна сумма углов треугольника?', a: ['180°', '90°', '360°', '270°'], c: 0, why: 'Сумма внутренних углов любого треугольника равна 180°.' },
-  { q: 'Вычислите: 2³', a: ['8', '6', '9', '5'], c: 0, why: '2³ = 2 · 2 · 2 = 8.' },
-  { q: 'Чему равен √49?', a: ['7', '14', '24', '6'], c: 0, why: '√49 = 7, потому что 7² = 49.' },
-  { q: 'Решите: 4x = 20', a: ['x = 5', 'x = 16', 'x = 80', 'x = 4'], c: 0, why: 'Разделим обе части уравнения на 4: x = 20 ÷ 4 = 5.' },
-  { q: 'Найдите периметр квадрата со стороной 5.', a: ['20', '25', '10', '15'], c: 0, why: 'У квадрата четыре равные стороны: P = 4 · 5 = 20.' },
-  { q: 'Упростите: 10 − 3 · 2', a: ['4', '14', '7', '8'], c: 0, why: 'Сначала выполняем умножение: 10 − 6 = 4.' },
-  { q: 'Какова вероятность выпадения орла при одном броске честной монеты?', a: ['1/2', '1/3', '1/4', '1'], c: 0, why: 'У честной монеты два равновозможных исхода, один из них — орёл.' },
-  { q: 'Решите: x − 4 = 9', a: ['x = 13', 'x = 5', 'x = 36', 'x = 9'], c: 0, why: 'Прибавим 4 к обеим частям: x = 9 + 4 = 13.' },
-  { q: 'Чему равна длина окружности радиуса r?', a: ['2πr', 'πr²', 'πr', '4πr²'], c: 0, why: 'Длина окружности вычисляется по формуле C = 2πr.' },
-  { q: 'Вычислите: 6²', a: ['36', '12', '18', '32'], c: 0, why: '6² = 6 · 6 = 36.' },
-  { q: 'Катеты прямоугольного треугольника равны 3 и 4. Найдите гипотенузу.', a: ['5', '7', '6', '4'], c: 0, why: 'По теореме Пифагора c² = 3² + 4² = 25, поэтому c = 5.' },
-  { q: 'Найдите среднее арифметическое чисел 2, 4 и 6.', a: ['4', '3', '5', '12'], c: 0, why: 'Среднее: (2 + 4 + 6) ÷ 3 = 4.' }
+function makeQuestion(i, question, correct, wrong, explanation) {
+  const options = [String(correct), ...wrong.map(String)];
+  const unique = [...new Set(options)].slice(0, 4);
+
+  while (unique.length < 4) unique.push(`Другой ответ ${unique.length}`);
+
+  const correctAnswer = String(correct);
+  const answerIndex = unique.indexOf(correctAnswer);
+  const shift = i % 4;
+  const choices = unique.map((_, index) => unique[(index - shift + 4) % 4]);
+  const correctIndex = choices.indexOf(correctAnswer);
+
+  return {
+    q: question,
+    a: choices,
+    c: correctIndex,
+    why: explanation
+  };
+}
+
+const questionGenerators = [
+  // 0. Выражения, формулы и разложение на множители
+  i => {
+    const n = i + 2;
+    if (i % 3 === 0) {
+      return makeQuestion(i, `Раскройте скобки: (x + ${n})²`,
+        `x² + ${2*n}x + ${n*n}`,
+        [`x² + ${n}x + ${n*n}`, `x² + ${2*n}x + ${n}`, `x² − ${2*n}x + ${n*n}`],
+        `Используем формулу (x + a)² = x² + 2ax + a². Здесь a = ${n}.`);
+    }
+    if (i % 3 === 1) {
+      return makeQuestion(i, `Разложите на множители: x² − ${n*n}`,
+        `(x − ${n})(x + ${n})`,
+        [`(x − ${n})²`, `(x + ${n})²`, `(x − ${n*n})(x + 1)`],
+        `Это разность квадратов: x² − a² = (x − a)(x + a).`);
+    }
+    return makeQuestion(i, `Раскройте скобки: (x + ${n})(x + 1)`,
+      `x² + ${n+1}x + ${n}`,
+      [`x² + ${n}x + 1`, `x² + ${n+1}x + 1`, `x² + x + ${n}`],
+      `Перемножаем слагаемые: x² + x + ${n}x + ${n}.`);
+  },
+
+  // 1. Уравнения, неравенства и системы
+  i => {
+    const x = i + 2;
+    const a = (i % 7) + 2;
+    if (i % 3 === 0) {
+      return makeQuestion(i, `Решите уравнение: x + ${a} = ${x+a}`, `x = ${x}`,
+        [`x = ${x+a}`, `x = ${x-a}`, `x = ${a}`],
+        `Вычитаем ${a} из обеих частей: x = ${x+a} − ${a} = ${x}.`);
+    }
+    if (i % 3 === 1) {
+      const k = i + 3;
+      return makeQuestion(i, `Решите неравенство: 2x + ${a} < ${2*k+a}`, `x < ${k}`,
+        [`x > ${k}`, `x < ${k+a}`, `x > ${k+a}`],
+        `Вычитаем ${a}, затем делим на 2: x < ${k}.`);
+    }
+    const y = (i % 5) + 1;
+    return makeQuestion(i, `Система: x + y = ${x+y}, x − y = ${x-y}. Чему равен x?`, `x = ${x}`,
+      [`x = ${y}`, `x = ${x+y}`, `x = ${x-y}`],
+      `Складываем уравнения системы: 2x = ${2*x}, значит x = ${x}.`);
+  },
+
+  // 2. Функции и графики
+  i => {
+    const k = (i % 5) + 1, b = (i % 7) - 2, x = (i % 6) + 1;
+    const y = k*x+b;
+    return makeQuestion(i, `Для функции y = ${k}x ${b < 0 ? '− '+Math.abs(b) : '+ '+b} найдите y при x = ${x}.`,
+      `y = ${y}`, [`y = ${y+k}`, `y = ${y-b}`, `y = ${k+b+x}`],
+      `Подставляем x = ${x}: y = ${k} · ${x} ${b < 0 ? '− '+Math.abs(b) : '+ '+b} = ${y}.`);
+  },
+
+  // 3. Квадратные уравнения
+  i => {
+    const p = (i % 6) + 1, r = p + (i % 4) + 1;
+    return makeQuestion(i, `Найдите корни уравнения (x − ${p})(x − ${r}) = 0.`,
+      `x = ${p} и x = ${r}`,
+      [`x = ${-p} и x = ${-r}`, `x = ${p+r}`, `x = ${p*r}`],
+      `Каждый множитель приравниваем к нулю: x − ${p} = 0 или x − ${r} = 0.`);
+  },
+
+  // 4. Степени, корни и дроби
+  i => {
+    const n = (i % 5) + 2;
+    if (i % 3 === 0) {
+      return makeQuestion(i, `Вычислите: 2 в степени ${n}.`, `${2**n}`,
+        [`${2*n}`, `${2**(n-1)}`, `${2**n+2}`],
+        `2 в степени ${n} означает умножить ${n} двоек: результат ${2**n}.`);
+    }
+    if (i % 3 === 1) {
+      return makeQuestion(i, `Найдите √${n*n}.`, `${n}`,
+        [`${n*n}`, `${2*n}`, `${n+1}`],
+        `Квадратный корень из ${n*n} равен ${n}, так как ${n}² = ${n*n}.`);
+    }
+    return makeQuestion(i, `Сократите дробь ${2*n}/${4*n}.`, '1/2',
+      ['1/4', '2/3', '2/1'],
+      `Делим числитель и знаменатель на ${2*n}: получаем 1/2.`);
+  },
+
+  // 5. Прогрессии
+  i => {
+    const a = (i % 6) + 1, d = (i % 4) + 2, n = (i % 7) + 3;
+    const answer = a + d*(n-1);
+    return makeQuestion(i, `Арифметическая прогрессия: a₁ = ${a}, d = ${d}. Найдите a${n}.`,
+      `${answer}`, [`${a+d*n}`, `${answer+d}`, `${a*n+d}`],
+      `aₙ = a₁ + d(n − 1) = ${a} + ${d} · ${n-1} = ${answer}.`);
+  },
+
+  // 6. Тригонометрия
+  i => {
+    const values = [
+      ['sin 0°', '0', '1', '1/2', '√3/2'],
+      ['sin 30°', '1/2', '0', '√3/2', '1'],
+      ['sin 45°', '√2/2', '1/2', '√3/2', '0'],
+      ['sin 60°', '√3/2', '1/2', '1', '√2/2'],
+      ['sin 90°', '1', '0', '1/2', '√3/2'],
+      ['cos 0°', '1', '0', '1/2', '√3/2'],
+      ['cos 30°', '√3/2', '1/2', '1', '0'],
+      ['cos 45°', '√2/2', '1/2', '√3/2', '1'],
+      ['cos 60°', '1/2', '√3/2', '0', '1'],
+      ['cos 90°', '0', '1', '1/2', '√2/2']
+    ];
+    const [question, correct, w1, w2, w3] = values[i % values.length];
+    return makeQuestion(i, `Вычислите ${question}.`, correct, [w1,w2,w3],
+      `По таблице основных значений ${question} = ${correct}.`);
+  },
+
+  // 7. Показательные и логарифмические уравнения
+  i => {
+    const n = (i % 5) + 2;
+    if (i % 2 === 0) {
+      return makeQuestion(i, `Решите: 2ˣ = ${2**n}.`, `x = ${n}`,
+        [`x = ${2**n}`, `x = ${n+1}`, `x = ${n-1}`],
+        `Так как ${2**n} = 2 в степени ${n}, получаем x = ${n}.`);
+    }
+    return makeQuestion(i, `Вычислите log₂(${2**n}).`, `${n}`,
+      [`${2**n}`, `${n+1}`, `${n-1}`],
+      `Логарифм отвечает на вопрос: в какую степень возвести 2, чтобы получить ${2**n}? Ответ: ${n}.`);
+  },
+
+  // 8. Производная
+  i => {
+    const a = (i % 5) + 1, n = (i % 4) + 2;
+    const coefficient = a*n, power = n-1;
+    const answer = `${coefficient}x${power === 1 ? '' : ' в степени '+power}`;
+    return makeQuestion(i, `Найдите производную функции f(x) = ${a}x в степени ${n}.`,
+      answer,
+      [`${a}x в степени ${n-1}`, `${coefficient}x в степени ${n}`, `${n}x в степени ${n}`],
+      `По правилу (axⁿ)' = an·xⁿ⁻¹. Получаем ${answer}.`);
+  },
+
+  // 9. Вероятность и статистика
+  i => {
+    if (i % 3 === 0) {
+      const a = i+1, b = i+3, c = i+5, mean = (a+b+c)/3;
+      return makeQuestion(i, `Найдите среднее чисел ${a}, ${b}, ${c}.`, `${mean}`,
+        [`${mean+1}`, `${mean-1}`, `${a+b+c}`],
+        `Складываем числа и делим на 3: (${a} + ${b} + ${c}) ÷ 3 = ${mean}.`);
+    }
+    if (i % 3 === 1) {
+      return makeQuestion(i, 'Сколько исходов у броска обычного шестигранного кубика?', '6',
+        ['4', '8', '12'],
+        'На гранях кубика числа от 1 до 6, поэтому всего 6 исходов.');
+    }
+    return makeQuestion(i, 'Какова вероятность выпадения чётного числа на честном кубике?', '1/2',
+      ['1/6', '1/3', '2/3'],
+      'Подходят три числа: 2, 4, 6. Вероятность равна 3/6 = 1/2.');
+  },
+
+  // 10. Углы, прямые и треугольники
+  i => {
+    const a = 35 + (i % 5)*5, b = 45 + (i % 4)*5, c = 180-a-b;
+    return makeQuestion(i, `В треугольнике два угла равны ${a}° и ${b}°. Найдите третий угол.`,
+      `${c}°`, [`${180-c}°`, `${a+b}°`, `${90-c}°`],
+      `Сумма углов треугольника 180°: 180° − ${a}° − ${b}° = ${c}°.`);
+  },
+
+  // 11. Равенство и подобие треугольников
+  i => {
+    const scale = (i % 4) + 2, small = (i % 5) + 2, large = scale*small;
+    return makeQuestion(i, `Стороны подобных треугольников относятся как 1:${scale}. Малая сторона ${small}. Чему равна соответствующая большая сторона?`,
+      `${large}`, [`${small+scale}`, `${large+scale}`, `${small*2}`],
+      `Умножаем сторону малого треугольника на коэффициент подобия: ${small} · ${scale} = ${large}.`);
+  },
+
+  // 12. Четырёхугольники
+  i => {
+    if (i % 2 === 0) {
+      const a = 70 + (i % 4)*10;
+      return makeQuestion(i, `У параллелограмма один угол ${a}°. Чему равен противоположный угол?`,
+        `${a}°`, [`${180-a}°`, `${360-a}°`, '90°'],
+        'Противоположные углы параллелограмма равны.');
+    }
+    const a = 70 + (i % 4)*10, b = 80, c = 90, d = 360-a-b-c;
+    return makeQuestion(i, `Три угла четырёхугольника равны ${a}°, ${b}° и ${c}°. Найдите четвёртый.`,
+      `${d}°`, [`${360-d}°`, `${a+b+c}°`, '90°'],
+      `Сумма углов четырёхугольника 360°: 360° − ${a}° − ${b}° − ${c}° = ${d}°.`);
+  },
+
+  // 13. Площади и теорема Пифагора
+  i => {
+    if (i % 3 === 0) {
+      const a = i+2, b = i+4;
+      return makeQuestion(i, `Найдите площадь прямоугольника со сторонами ${a} и ${b}.`,
+        `${a*b}`, [`${2*(a+b)}`, `${a+b}`, `${a*b+2}`],
+        `Площадь прямоугольника равна произведению сторон: ${a} · ${b} = ${a*b}.`);
+    }
+    if (i % 3 === 1) {
+      const n = (i % 4)+3, m = n+1;
+      return makeQuestion(i, `Катеты прямоугольного треугольника равны ${n} и ${m}. Найдите гипотенузу.`,
+        `${Math.sqrt(n*n+m*m)}`,
+        [`${n+m}`, `${m+1}`, `${n+m+1}`],
+        `По теореме Пифагора c² = ${n}² + ${m}². Для этих катетов c = ${Math.sqrt(n*n+m*m)}.`);
+    }
+    const base = i+3, height = 4;
+    return makeQuestion(i, `Найдите площадь треугольника с основанием ${base} и высотой ${height}.`,
+      `${base*height/2}`, [`${base*height}`, `${base+height}`, `${base*height/2+2}`],
+      `Площадь треугольника S = ah/2 = ${base} · ${height} ÷ 2 = ${base*height/2}.`);
+  },
+
+  // 14. Окружность и круг
+  i => {
+    const r = (i % 7)+1;
+    if (i % 2 === 0) {
+      return makeQuestion(i, `Найдите длину окружности радиуса ${r}.`,
+        `${2*r}π`, [`${r*r}π`, `${r}π`, `${4*r}π`],
+        `C = 2πr = 2 · ${r} · π = ${2*r}π.`);
+    }
+    return makeQuestion(i, `Найдите площадь круга радиуса ${r}.`,
+      `${r*r}π`, [`${2*r}π`, `${r}π`, `${2*r*r}π`],
+      `S = πr² = π · ${r}² = ${r*r}π.`);
+  },
+
+  // 15. Векторы и координаты
+  i => {
+    const x1 = i%5, y1 = i%4, dx = (i%5)+1, dy = (i%3)+1;
+    const x2 = x1+dx, y2 = y1+dy;
+    return makeQuestion(i, `Точки A(${x1}; ${y1}) и B(${x2}; ${y2}). Найдите координаты вектора AB.`,
+      `(${dx}; ${dy})`,
+      [`(${x2}; ${y2})`, `(${x1}; ${y1})`, `(${dy}; ${dx})`],
+      `Вычитаем координаты A из координат B: (${x2} − ${x1}; ${y2} − ${y1}) = (${dx}; ${dy}).`);
+  },
+
+  // 16. Прямые и плоскости в пространстве
+  i => {
+    const facts = [
+      ['Как называются прямые в пространстве, которые не пересекаются и не параллельны?', 'Скрещивающиеся', ['Перпендикулярные', 'Совпадающие', 'Пересекающиеся'], 'Скрещивающиеся прямые не лежат в одной плоскости и не пересекаются.'],
+      ['Сколько общих точек имеют две параллельные прямые?', '0', ['1', '2', 'Бесконечно много'], 'Параллельные прямые не пересекаются, поэтому общих точек нет.'],
+      ['Сколько общих точек имеют две пересекающиеся прямые?', '1', ['0', '2', 'Бесконечно много'], 'Пересекающиеся прямые имеют ровно одну общую точку.'],
+      ['Сколько точек задают единственную прямую?', 'Две различные точки', ['Одна точка', 'Три точки на одной прямой', 'Четыре точки'], 'Через любые две различные точки проходит единственная прямая.'],
+      ['Сколько точек задают единственную плоскость, если они не лежат на одной прямой?', 'Три', ['Одна', 'Две', 'Четыре на одной прямой'], 'Три точки, не лежащие на одной прямой, задают единственную плоскость.']
+    ];
+    const [question, answer, wrong, explanation] = facts[i % facts.length];
+    return makeQuestion(i, question, answer, wrong, explanation);
+  },
+
+  // 17. Призмы и пирамиды
+  i => {
+    const base = (i%6)+2, height = (i%5)+2;
+    if (i%2===0) {
+      const volume = base*height;
+      return makeQuestion(i, `Площадь основания призмы ${base}, высота ${height}. Найдите объём.`,
+        `${volume}`, [`${volume+base}`, `${base+height}`, `${base*height*2}`],
+        `V = Sосн · h = ${base} · ${height} = ${volume}.`);
+    }
+    const volume = base*height/3;
+    return makeQuestion(i, `Площадь основания пирамиды ${base}, высота ${height}. Найдите объём.`,
+      `${volume}`, [`${base*height}`, `${base+height}`, `${volume+base}`],
+      `V = ⅓Sосн · h = ⅓ · ${base} · ${height} = ${volume}.`);
+  },
+
+  // 18. Цилиндр, конус и шар
+  i => {
+    if (i%3===0) {
+      const r=(i%4)+1, h=(i%5)+2;
+      return makeQuestion(i, `Найдите объём цилиндра с радиусом ${r} и высотой ${h}.`,
+        `${r*r*h}π`, [`${r*h}π`, `${2*r*h}π`, `${r*r*h/2}π`],
+        `V = πr²h = π · ${r}² · ${h} = ${r*r*h}π.`);
+    }
+    if (i%3===1) {
+      const r=(i%3)+1, h=3*r;
+      return makeQuestion(i, `Найдите объём конуса с радиусом ${r} и высотой ${h}.`,
+        `${r*r*h/3}π`, [`${r*r*h}π`, `${r*h}π`, `${r*r*h/2}π`],
+        `V = ⅓πr²h = ⅓ · π · ${r}² · ${h} = ${r*r*h/3}π.`);
+    }
+    const r=(i%4)+1;
+    return makeQuestion(i, `Найдите объём шара радиуса ${r}.`,
+      `${4*r*r*r}/3π`, [`${r*r*r}π`, `${2*r*r}π`, `${4*r*r}/3π`],
+      `V = ⁴⁄₃πr³ = ⁴⁄₃ · π · ${r}³ = ${4*r*r*r}/3π.`);
+  }
 ];
 
-const translations = {
+function getQuestions(topicIndex) {
+  const generator = questionGenerators[topicIndex];
+  return Array.from({ length: 15 }, (_, i) => generator(i));
+}
+
+const words = {
   ru: {
-    overview: 'Обзор', sections: 'Разделы', myPlan: 'Мой план',
-    mistakes: 'Работа над ошибками', teacherView: 'Панель учителя',
-    classroom: 'КЛАСС', workspace: 'ОБУЧЕНИЕ',
-    teacher: 'Преподаватель', profile: 'ПРОФИЛЬ УЧЕНИКА',
-    joinTitle: 'Начнём учиться', joinText: 'Создайте профиль без электронной почты.',
-    yourName: 'Ваше имя', yourClass: 'Класс',
-    saveProfile: 'Сохранить профиль', localNote: 'Профиль и прогресс хранятся в браузере на этом устройстве.',
-    login: 'Войти', algebra: 'Алгебра', geometry: 'Геометрия',
-    welcome: 'Математика, которая подстраивается под тебя',
-    subtitle: 'Определи, что уже получается, найди темы для повторения и двигайся по индивидуальному плану.',
-    start: 'Пройти диагностику', progress: 'Мой прогресс',
-    completed: 'Тем пройдено', best: 'Лучший результат',
-    recommended: 'Рекомендуем повторить', topics: 'тем',
-    lesson: 'Краткое объяснение', begin: 'Начать тест · 15 вопросов',
-    check: 'Проверить ответы', back: 'Назад', testDone: 'Тест завершён',
-    correct: 'Верно', wrong: 'Неверно', question: 'Вопрос',
-    planText: 'В первую очередь повтори темы, по которым результат ниже 70%.',
-    noPlan: 'Пройди тесты по темам — результаты и рекомендации появятся здесь.',
-    noMistakes: 'Пока нет ошибок для повторения. Пройди тест по любой теме.',
-    askAI: 'Спросить учебного помощника', chatPlaceholder: 'Напиши, что непонятно…',
-    send: 'Отправить',
-    helperNotice: 'Демо-помощник использует объяснение темы. Для настоящего ИИ-чата потребуется сервер.',
-    teacherTitle: 'Прогресс класса',
-    teacherNotice: 'Эта демоверсия хранит результаты только в браузере на текущем устройстве. Для общей статистики класса нужен сервер.',
-    noProfile: 'Создай профиль ученика, чтобы сохранять результаты.',
-    noResults: 'Пока нет результатов тестов.',
-    chooseAnswer: 'Выбери один вариант ответа в каждом задании.'
+    overview:'Обзор', sections:'Разделы', myPlan:'Мой план',
+    mistakes:'Работа над ошибками', teacherView:'Панель учителя',
+    classroom:'КЛАСС', workspace:'ОБУЧЕНИЕ',
+    teacher:'Преподаватель', profile:'ПРОФИЛЬ УЧЕНИКА',
+    joinTitle:'Начнём учиться', joinText:'Создайте профиль без электронной почты.',
+    yourName:'Ваше имя', yourClass:'Класс', saveProfile:'Сохранить профиль',
+    localNote:'Профиль и прогресс сохраняются в этом браузере.',
+    login:'Войти', welcome:'Математика, которая подстраивается под тебя',
+    subtitle:'Найди темы для повторения и двигайся по индивидуальному плану.',
+    start:'Пройти диагностику', progress:'Мой прогресс',
+    completed:'Тем пройдено', best:'Средний результат',
+    recommended:'Рекомендуем повторить', topics:'тем',
+    lesson:'Краткое объяснение', begin:'Тест · 15 вопросов',
+    check:'Проверить ответы', back:'К разделам', testDone:'Тест завершён',
+    correct:'Верно', question:'Вопрос', choose:'Выбери один ответ на каждый вопрос.',
+    noPlan:'Пройди тесты по темам — результаты появятся здесь.',
+    noMistakes:'Пока нет ошибок для повторения. Пройди тест по любой теме.',
+    ask:'Учебный помощник', chatPlaceholder:'Напиши вопрос…', send:'Отправить',
+    chatNote:'Демо-помощник использует объяснение текущей темы. Для настоящего ИИ-чата нужен сервер.',
+    classProgress:'Прогресс класса',
+    serverNote:'Эта демоверсия хранит данные только в браузере на текущем устройстве. Для общей статистики класса нужен сервер.',
+    noResults:'Пока нет результатов тестов.', createProfile:'Создай профиль ученика, чтобы сохранять результаты.'
   },
   kk: {
-    overview: 'Шолу', sections: 'Бөлімдер', myPlan: 'Менің жоспарым',
-    mistakes: 'Қателермен жұмыс', teacherView: 'Мұғалім панелі',
-    classroom: 'СЫНЫП', workspace: 'ОҚУ',
-    teacher: 'Мұғалім', profile: 'ОҚУШЫ ПРОФИЛІ',
-    joinTitle: 'Оқуды бастайық', joinText: 'Электрондық поштасыз профиль жасаңыз.',
-    yourName: 'Атыңыз', yourClass: 'Сынып',
-    saveProfile: 'Профильді сақтау', localNote: 'Профиль мен үлгерім осы құрылғы браузерінде сақталады.',
-    login: 'Кіру', algebra: 'Алгебра', geometry: 'Геометрия',
-    welcome: 'Саған бейімделетін математика',
-    subtitle: 'Білгеніңді анықта, қайталау керек тақырыптарды тауып, жеке жоспарыңмен оқы.',
-    start: 'Диагностиканы бастау', progress: 'Менің үлгерімім',
-    completed: 'Өтілген тақырып', best: 'Ең жақсы нәтиже',
-    recommended: 'Қайталауға ұсынамыз', topics: 'тақырып',
-    lesson: 'Қысқаша түсіндіру', begin: 'Тестті бастау · 15 сұрақ',
-    check: 'Жауаптарды тексеру', back: 'Артқа', testDone: 'Тест аяқталды',
-    correct: 'Дұрыс', wrong: 'Қате', question: 'Сұрақ',
-    planText: 'Алдымен нәтижесі 70%-дан төмен тақырыптарды қайтала.',
-    noPlan: 'Тақырыптар бойынша тест тапсыр — нәтижелер осында көрінеді.',
-    noMistakes: 'Қайталау үшін қате жоқ. Кез келген тақырып бойынша тест тапсыр.',
-    askAI: 'Оқу көмекшісінен сұра', chatPlaceholder: 'Түсінбегеніңді жаз…',
-    send: 'Жіберу',
-    helperNotice: 'Демо-көмекші тақырыпты түсіндіреді. Нақты ЖИ чатын іске қосу үшін сервер қажет.',
-    teacherTitle: 'Сынып үлгерімі',
-    teacherNotice: 'Демо нәтижелерді тек осы құрылғы браузерінде сақтайды. Сыныптың ортақ статистикасы үшін сервер қажет.',
-    noProfile: 'Нәтижелерді сақтау үшін оқушы профилін жаса.',
-    noResults: 'Әзірге тест нәтижелері жоқ.',
-    chooseAnswer: 'Әр тапсырмада бір жауапты таңда.'
+    overview:'Шолу', sections:'Бөлімдер', myPlan:'Менің жоспарым',
+    mistakes:'Қателермен жұмыс', teacherView:'Мұғалім панелі',
+    classroom:'СЫНЫП', workspace:'ОҚУ',
+    teacher:'Мұғалім', profile:'ОҚУШЫ ПРОФИЛІ',
+    joinTitle:'Оқуды бастайық', joinText:'Электрондық поштасыз профиль жасаңыз.',
+    yourName:'Атыңыз', yourClass:'Сынып', saveProfile:'Профильді сақтау',
+    localNote:'Профиль мен үлгерім осы браузерде сақталады.',
+    login:'Кіру', welcome:'Саған бейімделетін математика',
+    subtitle:'Қайталау керек тақырыптарды тауып, жеке жоспарыңмен оқы.',
+    start:'Диагностиканы бастау', progress:'Менің үлгерімім',
+    completed:'Өтілген тақырып', best:'Орташа нәтиже',
+    recommended:'Қайталауға ұсынамыз', topics:'тақырып',
+    lesson:'Қысқаша түсіндіру', begin:'Тест · 15 сұрақ',
+    check:'Жауаптарды тексеру', back:'Бөлімдерге қайту', testDone:'Тест аяқталды',
+    correct:'Дұрыс', question:'Сұрақ', choose:'Әр сұраққа бір жауап таңда.',
+    noPlan:'Тақырыптар бойынша тест тапсыр — нәтижелер осында көрінеді.',
+    noMistakes:'Қайталау үшін қате жоқ. Кез келген тақырып бойынша тест тапсыр.',
+    ask:'Оқу көмекшісі', chatPlaceholder:'Сұрағыңды жаз…', send:'Жіберу',
+    chatNote:'Демо-көмекші тақырыпты түсіндіреді. Нақты ЖИ чатына сервер қажет.',
+    classProgress:'Сынып үлгерімі',
+    serverNote:'Демо деректерді осы құрылғы браузерінде сақтайды. Сынып статистикасы үшін сервер қажет.',
+    noResults:'Әзірге тест нәтижелері жоқ.', createProfile:'Нәтижелерді сақтау үшін оқушы профилін жаса.'
   },
   en: {
-    overview: 'Overview', sections: 'Sections', myPlan: 'My plan',
-    mistakes: 'Review mistakes', teacherView: 'Teacher dashboard',
-    classroom: 'CLASSROOM', workspace: 'LEARNING',
-    teacher: 'Teacher', profile: 'STUDENT PROFILE',
-    joinTitle: 'Let’s get started', joinText: 'Create a profile without an email address.',
-    yourName: 'Your name', yourClass: 'Class',
-    saveProfile: 'Save profile', localNote: 'Profile and progress are stored in this browser on this device.',
-    login: 'Sign in', algebra: 'Algebra', geometry: 'Geometry',
-    welcome: 'Math that adapts to you',
-    subtitle: 'See what you know, find topics to review, and follow your personal learning plan.',
-    start: 'Take the diagnostic', progress: 'My progress',
-    completed: 'Topics completed', best: 'Best score',
-    recommended: 'Recommended review', topics: 'topics',
-    lesson: 'Quick lesson', begin: 'Start quiz · 15 questions',
-    check: 'Check answers', back: 'Back', testDone: 'Quiz complete',
-    correct: 'Correct', wrong: 'Incorrect', question: 'Question',
-    planText: 'Start by reviewing topics where your score is below 70%.',
-    noPlan: 'Take topic quizzes to see your results and recommendations here.',
-    noMistakes: 'No mistakes to review yet. Take a quiz in any topic.',
-    askAI: 'Ask the study helper', chatPlaceholder: 'Ask what you’re unsure about…',
-    send: 'Send',
-    helperNotice: 'The demo helper uses the topic explanation. A server is needed for a real AI chat.',
-    teacherTitle: 'Class progress',
-    teacherNotice: 'This demo stores results only in this browser on this device. Shared class statistics need a server.',
-    noProfile: 'Create a student profile to save results.',
-    noResults: 'There are no quiz results yet.',
-    chooseAnswer: 'Choose one answer for each question.'
+    overview:'Overview', sections:'Sections', myPlan:'My plan',
+    mistakes:'Review mistakes', teacherView:'Teacher dashboard',
+    classroom:'CLASSROOM', workspace:'LEARNING',
+    teacher:'Teacher', profile:'STUDENT PROFILE',
+    joinTitle:'Let’s get started', joinText:'Create a profile without an email address.',
+    yourName:'Your name', yourClass:'Class', saveProfile:'Save profile',
+    localNote:'Profile and progress are saved in this browser.',
+    login:'Sign in', welcome:'Math that adapts to you',
+    subtitle:'Find topics to review and follow your personal learning plan.',
+    start:'Take the diagnostic', progress:'My progress',
+    completed:'Topics completed', best:'Average score',
+    recommended:'Recommended review', topics:'topics',
+    lesson:'Quick lesson', begin:'Quiz · 15 questions',
+    check:'Check answers', back:'Back to sections', testDone:'Quiz complete',
+    correct:'Correct', question:'Question', choose:'Choose one answer for each question.',
+    noPlan:'Take topic quizzes to see your results here.',
+    noMistakes:'No mistakes to review yet. Take a quiz in any topic.',
+    ask:'Study helper', chatPlaceholder:'Type a question…', send:'Send',
+    chatNote:'The demo helper uses the topic explanation. A server is needed for a real AI chat.',
+    classProgress:'Class progress',
+    serverNote:'This demo stores data only in this browser on this device. Shared class progress needs a server.',
+    noResults:'There are no quiz results yet.', createProfile:'Create a student profile to save results.'
   }
 };
 
@@ -256,143 +406,118 @@ const loginDialog = document.getElementById('loginDialog');
 const loginForm = document.getElementById('loginForm');
 
 let language = localStorage.getItem('abai-language') || 'ru';
-let profile = readJSON('abai-profile', null);
-let selectedAnswers = {};
-let chatHistory = [];
+let profile = readStorage('abai-profile', null);
+let chosenAnswers = {};
 
-function readJSON(key, fallback) {
+function readStorage(key, fallback) {
   try {
-    const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : fallback;
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : fallback;
   } catch {
     return fallback;
   }
 }
 
-function saveJSON(key, value) {
+function saveStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
 function tr(key) {
-  return translations[language]?.[key] || translations.ru[key] || key;
+  return words[language]?.[key] || words.ru[key] || key;
 }
 
-function topicTitle(topic) {
+function titleOf(topic) {
   return topic[language] || topic.ru;
 }
 
 function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, character => ({
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  })[character]);
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  })[char]);
 }
 
-function getProgress() {
-  return readJSON('abai-progress', {});
+function getResults() {
+  return readStorage('abai-progress', {});
 }
 
-function updateProfileDisplay() {
-  const nameElement = document.getElementById('profileName');
-  const avatarElement = document.getElementById('avatar');
+function updateProfile() {
+  const name = document.getElementById('profileName');
+  const avatar = document.getElementById('avatar');
 
-  if (!nameElement || !avatarElement) return;
+  if (name) name.textContent = profile?.name || tr('login');
+  if (avatar) avatar.textContent = profile?.name?.charAt(0).toUpperCase() || '?';
 
-  nameElement.textContent = profile?.name || tr('login');
-  avatarElement.textContent = profile?.name
-    ? profile.name.trim().charAt(0).toUpperCase()
-    : '?';
-
-  const nameInput = document.getElementById('studentName');
-  const classInput = document.getElementById('className');
-
-  if (profile && nameInput && classInput) {
-    nameInput.value = profile.name || '';
-    classInput.value = profile.className || '';
+  if (profile) {
+    const nameInput = document.getElementById('studentName');
+    const classInput = document.getElementById('className');
+    if (nameInput) nameInput.value = profile.name;
+    if (classInput) classInput.value = profile.className;
   }
 }
 
-function setupProfileForm() {
-  if (profileButton && loginDialog) {
-    profileButton.addEventListener('click', () => loginDialog.showModal());
-  }
+function setupProfile() {
+  profileButton?.addEventListener('click', () => loginDialog?.showModal());
 
-  if (loginForm) {
-    loginForm.addEventListener('submit', event => {
-      event.preventDefault();
+  loginForm?.addEventListener('submit', event => {
+    event.preventDefault();
 
-      const name = document.getElementById('studentName')?.value.trim();
-      const className = document.getElementById('className')?.value.trim();
+    const name = document.getElementById('studentName')?.value.trim();
+    const className = document.getElementById('className')?.value.trim();
+    if (!name || !className) return;
 
-      if (!name || !className) return;
+    profile = { name, className };
+    saveStorage('abai-profile', profile);
+    loginDialog?.close();
+    updateProfile();
+    render();
+  });
 
-      profile = { name, className };
-      saveJSON('abai-profile', profile);
-      loginDialog.close();
-      updateProfileDisplay();
-      render();
-    });
-  }
-
-  updateProfileDisplay();
+  updateProfile();
 }
 
-function setLanguage(nextLanguage) {
-  if (!translations[nextLanguage]) return;
+function setLanguage(next) {
+  if (!words[next]) return;
 
-  language = nextLanguage;
-  localStorage.setItem('abai-language', language);
-  document.documentElement.lang = language;
+  language = next;
+  localStorage.setItem('abai-language', next);
+  document.documentElement.lang = next;
 
   document.querySelectorAll('[data-i18n]').forEach(element => {
-    const key = element.dataset.i18n;
-    const translated = translations[language][key];
+    const translated = words[next][element.dataset.i18n];
     if (translated) element.textContent = translated;
   });
 
   render();
-  updateProfileDisplay();
+  updateProfile();
 }
 
-function setupLanguagePicker() {
-  if (!languageSelect) return;
+languageSelect.value = language;
+languageSelect.addEventListener('change', event => setLanguage(event.target.value));
+document.documentElement.lang = language;
 
-  languageSelect.value = language;
-  document.documentElement.lang = language;
-  languageSelect.addEventListener('change', event => setLanguage(event.target.value));
+function route() {
+  return (location.hash.replace(/^#/, '') || 'home').split('/');
 }
 
-function openTopic(index) {
-  if (index < 0 || index >= topics.length) return;
-  location.hash = `topic/${index}`;
-}
-
-function routeParts() {
-  const route = location.hash.replace(/^#/, '') || 'home';
-  return route.split('/');
-}
-
-function updateActiveNavigation(page) {
+function setActiveNav(page) {
   document.querySelectorAll('.nav-link[data-page]').forEach(link => {
     link.classList.toggle('active', link.dataset.page === page);
   });
 }
 
+function openTopic(index) {
+  location.hash = `topic/${index}`;
+}
+
 function render() {
   if (!app) return;
 
-  const [page, parameter] = routeParts();
-  updateActiveNavigation(page);
+  const [page, id] = route();
+  setActiveNav(page);
 
   if (page === 'topic') {
-    const topicIndex = Number(parameter);
-    if (Number.isInteger(topicIndex) && topics[topicIndex]) {
-      renderTopic(topicIndex);
-      return;
-    }
+    const index = Number(id);
+    if (Number.isInteger(index) && topics[index]) return renderTopic(index);
     location.hash = 'sections';
     return;
   }
@@ -401,12 +526,11 @@ function render() {
   if (page === 'plan') return renderPlan();
   if (page === 'mistakes') return renderMistakes();
   if (page === 'teacher') return renderTeacher();
-
   renderHome();
 }
 
 function renderHome() {
-  const results = getProgress();
+  const results = getResults();
   const scores = Object.values(results).map(result => result.score);
   const average = scores.length
     ? Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)
@@ -414,51 +538,26 @@ function renderHome() {
 
   app.innerHTML = `
     <section class="hero">
-      <div class="eyebrow">ABAI SCHOOLS · МАТЕМАТИКА</div>
+      <div class="eyebrow">ABAI SCHOOLS · MATHEMATICS</div>
       <h1>${tr('welcome')}</h1>
       <p>${tr('subtitle')}</p>
-      <button class="button light" type="button" onclick="location.hash='sections'">
-        ${tr('start')} →
-      </button>
+      <button class="button light" type="button" onclick="location.hash='sections'">${tr('start')} →</button>
     </section>
 
     <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-label">${tr('progress')}</span>
-        <strong class="stat-value">${average}%</strong>
-        <span class="stat-hint">${tr('best')}</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">${tr('completed')}</span>
-        <strong class="stat-value">${Object.keys(results).length}/${topics.length}</strong>
-        <span class="stat-hint">${tr('sections')}</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">${tr('yourClass') || 'Класс'}</span>
-        <strong class="stat-value">${profile ? escapeHTML(profile.className) : '—'}</strong>
-        <span class="stat-hint">${profile ? escapeHTML(profile.name) : tr('login')}</span>
-      </div>
+      <div class="stat-card"><span class="stat-label">${tr('progress')}</span><strong class="stat-value">${average}%</strong><span class="stat-hint">${tr('best')}</span></div>
+      <div class="stat-card"><span class="stat-label">${tr('completed')}</span><strong class="stat-value">${Object.keys(results).length}/${topics.length}</strong><span class="stat-hint">${tr('sections')}</span></div>
+      <div class="stat-card"><span class="stat-label">${tr('yourClass') || 'Класс'}</span><strong class="stat-value">${profile ? escapeHTML(profile.className) : '—'}</strong><span class="stat-hint">${profile ? escapeHTML(profile.name) : tr('login')}</span></div>
     </div>
 
     <div class="section-heading">
-      <div>
-        <h2>${tr('recommended')}</h2>
-        <p>${tr('planText')}</p>
-      </div>
-      <button class="button outline small" type="button" onclick="location.hash='plan'">
-        ${tr('myPlan')} →
-      </button>
+      <div><h2>${tr('recommended')}</h2><p>${tr('noPlan')}</p></div>
+      <button class="button outline small" type="button" onclick="location.hash='plan'">${tr('myPlan')} →</button>
     </div>
 
     <div class="section-grid">
-      <a class="section-card" href="sections.html#sections">
-        <div class="section-card-top"><span class="section-symbol">∑</span>↗</div>
-        <h3>${tr('algebra')}</h3><p>10 ${tr('topics')}</p>
-      </a>
-      <a class="section-card" href="sections.html#sections">
-        <div class="section-card-top"><span class="section-symbol">△</span>↗</div>
-        <h3>${tr('geometry')}</h3><p>9 ${tr('topics')}</p>
-      </a>
+      <a class="section-card" href="sections.html#sections"><div class="section-card-top"><span class="section-symbol">∑</span>↗</div><h3>${tr('algebra')}</h3><p>10 ${tr('topics')}</p></a>
+      <a class="section-card" href="sections.html#sections"><div class="section-card-top"><span class="section-symbol">△</span>↗</div><h3>${tr('geometry')}</h3><p>9 ${tr('topics')}</p></a>
     </div>
 
     <div class="section-heading">
@@ -471,91 +570,66 @@ function renderHome() {
 }
 
 function renderSections() {
-  const results = getProgress();
+  const results = getResults();
 
-  const groups = ['algebra', 'geometry'].map(group => {
-    const groupTopics = topics
+  const cards = ['algebra', 'geometry'].map(group => {
+    const items = topics
       .map((topic, index) => ({ topic, index }))
       .filter(item => item.topic.group === group);
 
     return `
       <section class="section-card">
-        <div class="section-card-top">
-          <span class="section-symbol">${group === 'algebra' ? '∑' : '△'}</span>
-          <span>${groupTopics.length} ${tr('topics')}</span>
-        </div>
+        <div class="section-card-top"><span class="section-symbol">${group === 'algebra' ? '∑' : '△'}</span><span>${items.length} ${tr('topics')}</span></div>
         <h3>${tr(group)}</h3>
         <div class="topic-list">
-          ${groupTopics.map(({ topic, index }) => {
-            const result = results[index];
-            return `
-              <button class="topic-row" type="button" data-topic="${index}">
-                <span class="topic-index">${String(index + 1).padStart(2, '0')}</span>
-                <span class="topic-main">
-                  <b>${escapeHTML(topicTitle(topic))}</b>
-                  <small>${result ? `${result.score}%` : tr('begin')}</small>
-                </span>
-                <span class="topic-score">→</span>
-              </button>`;
-          }).join('')}
+          ${items.map(({ topic, index }) => `
+            <button class="topic-row" type="button" data-topic="${index}">
+              <span class="topic-index">${String(index + 1).padStart(2, '0')}</span>
+              <span class="topic-main"><b>${escapeHTML(titleOf(topic))}</b><small>${results[index] ? `${results[index].score}%` : tr('begin')}</small></span>
+              <span class="topic-score">→</span>
+            </button>`).join('')}
         </div>
       </section>`;
   }).join('');
 
   app.innerHTML = `
-    <div class="welcome">
-      <div class="eyebrow">${tr('sections')}</div>
-      <h1>${tr('sections')}</h1>
-      <p>${tr('subtitle')}</p>
-    </div>
-    <div class="section-grid">${groups}</div>`;
+    <div class="welcome"><div class="eyebrow">${tr('sections')}</div><h1>${tr('sections')}</h1><p>${tr('subtitle')}</p></div>
+    <div class="section-grid">${cards}</div>`;
 
   app.querySelectorAll('[data-topic]').forEach(button => {
     button.addEventListener('click', () => openTopic(Number(button.dataset.topic)));
   });
 }
 
-function renderTopic(index) {
-  const topic = topics[index];
-  const previousResult = getProgress()[index];
-  selectedAnswers = {};
+function renderTopic(topicIndex) {
+  const topic = topics[topicIndex];
+  const testQuestions = getQuestions(topicIndex);
+  const previous = getResults()[topicIndex];
+  chosenAnswers = {};
 
   app.innerHTML = `
     <div class="welcome">
-      <button class="button outline small" type="button" onclick="location.hash='sections'">
-        ← ${tr('back')}
-      </button>
+      <button class="button outline small" type="button" onclick="location.hash='sections'">← ${tr('back')}</button>
       <div class="eyebrow" style="margin-top:18px">${tr(topic.group)}</div>
-      <h1>${escapeHTML(topicTitle(topic))}</h1>
-      <p>${tr('lesson')}</p>
+      <h1>${escapeHTML(titleOf(topic))}</h1>
     </div>
 
     <div class="lesson-box"><b>${tr('lesson')}</b><br>${escapeHTML(topic.lesson)}</div>
+    ${previous ? `<div class="result-banner">${tr('best')}: <strong>${previous.score}%</strong></div>` : ''}
 
-    ${previousResult ? `
-      <div class="result-banner">
-        ${tr('best')}: <strong>${previousResult.score}%</strong>
-      </div>` : ''}
-
-    <div class="section-heading">
-      <div><h2>${tr('begin')}</h2><p>${tr('chooseAnswer')}</p></div>
-    </div>
+    <div class="section-heading"><div><h2>${tr('begin')}</h2><p>${tr('choose')}</p></div></div>
 
     <form id="quizForm">
-      ${questions.map((question, questionIndex) => `
-        <section class="quiz-question" id="question-${questionIndex}">
-          <div class="question-meta">${tr('question')} ${questionIndex + 1} / ${questions.length}</div>
-          <div class="question-text">${escapeHTML(question.q)}</div>
+      ${testQuestions.map((item, index) => `
+        <section class="quiz-question" id="question-${index}">
+          <div class="question-meta">${tr('question')} ${index + 1} / 15</div>
+          <div class="question-text">${escapeHTML(item.q)}</div>
           <div class="answers">
-            ${question.a.map((answer, answerIndex) => `
-              <button class="answer-option" type="button"
-                data-question="${questionIndex}" data-answer="${answerIndex}">
-                ${escapeHTML(answer)}
-              </button>`).join('')}
+            ${item.a.map((answer, answerIndex) => `
+              <button class="answer-option" type="button" data-q="${index}" data-a="${answerIndex}">${escapeHTML(answer)}</button>
+            `).join('')}
           </div>
-          <div class="explanation" id="explanation-${questionIndex}">
-            ${escapeHTML(question.why)}
-          </div>
+          <div class="explanation" id="explanation-${index}">${escapeHTML(item.why)}</div>
         </section>`).join('')}
       <button class="button primary" type="submit">${tr('check')}</button>
     </form>
@@ -563,152 +637,119 @@ function renderTopic(index) {
     <div id="quizResult"></div>
 
     <section class="card" style="margin-top:24px">
-      <h3>${tr('askAI')}</h3>
+      <h3>${tr('ask')}</h3>
       <div class="ai-chat" id="chatMessages"></div>
       <form class="chat-form" id="chatForm">
         <input id="chatInput" placeholder="${tr('chatPlaceholder')}" required maxlength="300">
         <button class="button primary" type="submit">${tr('send')}</button>
       </form>
-      <p class="stat-hint" style="margin-top:10px">${tr('helperNotice')}</p>
+      <p class="stat-hint" style="margin-top:10px">${tr('chatNote')}</p>
     </section>`;
 
-  setupQuiz(index);
+  setupQuiz(topicIndex, testQuestions);
   setupChat(topic);
 }
 
-function setupQuiz(topicIndex) {
-  const quizForm = document.getElementById('quizForm');
-
+function setupQuiz(topicIndex, testQuestions) {
   app.querySelectorAll('.answer-option').forEach(button => {
     button.addEventListener('click', () => {
-      const questionIndex = Number(button.dataset.question);
-      selectedAnswers[questionIndex] = Number(button.dataset.answer);
+      const questionIndex = Number(button.dataset.q);
+      chosenAnswers[questionIndex] = Number(button.dataset.a);
 
-      app.querySelectorAll(`[data-question="${questionIndex}"]`).forEach(option => {
+      app.querySelectorAll(`[data-q="${questionIndex}"]`).forEach(option => {
         option.classList.toggle('selected', option === button);
       });
     });
   });
 
-  quizForm.addEventListener('submit', event => {
+  document.getElementById('quizForm').addEventListener('submit', event => {
     event.preventDefault();
 
-    if (Object.keys(selectedAnswers).length !== questions.length) {
-      const firstUnanswered = questions.findIndex((_, index) =>
-        selectedAnswers[index] === undefined
-      );
-      document.getElementById(`question-${firstUnanswered}`)
-        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const missing = testQuestions.findIndex((_, index) => chosenAnswers[index] === undefined);
+    if (missing !== -1) {
+      document.getElementById(`question-${missing}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
     let correctCount = 0;
     const mistakes = [];
 
-    questions.forEach((question, questionIndex) => {
-      const selected = selectedAnswers[questionIndex];
-      const options = app.querySelectorAll(`[data-question="${questionIndex}"]`);
+    testQuestions.forEach((question, questionIndex) => {
+      const selected = chosenAnswers[questionIndex];
 
-      options.forEach((option, answerIndex) => {
+      app.querySelectorAll(`[data-q="${questionIndex}"]`).forEach((option, answerIndex) => {
         option.disabled = true;
-
         if (answerIndex === question.c) option.classList.add('correct');
-        if (answerIndex === selected && selected !== question.c) {
-          option.classList.add('wrong');
-        }
+        if (answerIndex === selected && selected !== question.c) option.classList.add('wrong');
       });
 
       if (selected === question.c) {
         correctCount++;
       } else {
         mistakes.push(questionIndex);
-        document.getElementById(`explanation-${questionIndex}`)
-          ?.classList.add('show');
+        document.getElementById(`explanation-${questionIndex}`)?.classList.add('show');
       }
     });
 
-    const score = Math.round((correctCount / questions.length) * 100);
-    const results = getProgress();
+    const score = Math.round(correctCount / testQuestions.length * 100);
+    const results = getResults();
 
     results[topicIndex] = {
       score,
       correct: correctCount,
-      total: questions.length,
+      total: testQuestions.length,
       mistakes,
       date: new Date().toISOString()
     };
 
-    saveJSON('abai-progress', results);
+    saveStorage('abai-progress', results);
 
     document.getElementById('quizResult').innerHTML = `
-      <div class="result-banner">
-        ${tr('testDone')}: <strong>${correctCount}/${questions.length} · ${score}%</strong>
-        <br><span>${score >= 70 ? tr('correct') : tr('recommended')}</span>
-      </div>`;
+      <div class="result-banner">${tr('testDone')}: <strong>${correctCount}/15 · ${score}%</strong></div>`;
 
-    document.getElementById('quizResult')
-      .scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('quizResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 }
 
 function setupChat(topic) {
-  const chatForm = document.getElementById('chatForm');
-  const chatContainer = document.getElementById('chatMessages');
-
-  function addMessage(role, message) {
-    const element = document.createElement('div');
-    element.className = `chat-message ${role}`;
-    element.textContent = message;
-    chatContainer.appendChild(element);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-  }
-
-  chatForm.addEventListener('submit', event => {
+  document.getElementById('chatForm').addEventListener('submit', event => {
     event.preventDefault();
-
     const input = document.getElementById('chatInput');
-    const question = input.value.trim();
-    if (!question) return;
+    if (!input.value.trim()) return;
 
-    addMessage('user', question);
+    const chat = document.getElementById('chatMessages');
+    const studentMessage = document.createElement('div');
+    studentMessage.className = 'chat-message user';
+    studentMessage.textContent = input.value.trim();
+
+    const helperMessage = document.createElement('div');
+    helperMessage.className = 'chat-message';
+    helperMessage.textContent = topic.lesson;
+
+    chat.append(studentMessage, helperMessage);
     input.value = '';
-
-    // Демо-ответ с объяснением текущей темы. Для подключения настоящей ИИ-модели нужен сервер.
-    addMessage('assistant', topic.lesson);
+    chat.scrollTop = chat.scrollHeight;
   });
 }
 
 function renderPlan() {
-  const results = getProgress();
+  const results = getResults();
 
-  const weakTopics = topics
+  const completed = topics
     .map((topic, index) => ({ topic, index, result: results[index] }))
     .filter(item => item.result)
     .sort((a, b) => a.result.score - b.result.score);
 
   app.innerHTML = `
-    <div class="welcome">
-      <div class="eyebrow">${tr('myPlan')}</div>
-      <h1>${tr('myPlan')}</h1>
-      <p>${tr('planText')}</p>
-    </div>
-
-    ${!profile ? `<div class="empty">${tr('noProfile')}</div>` : ''}
-
-    ${weakTopics.length
-      ? `<div class="topic-list">${weakTopics.map(({ topic, index, result }) => `
+    <div class="welcome"><div class="eyebrow">${tr('myPlan')}</div><h1>${tr('myPlan')}</h1><p>${tr('noPlan')}</p></div>
+    ${completed.length
+      ? `<div class="topic-list">${completed.map(({ topic, index, result }) => `
           <button class="topic-row" type="button" data-topic="${index}">
             <span class="topic-index">${result.score}%</span>
-            <span class="topic-main">
-              <b>${escapeHTML(topicTitle(topic))}</b>
-              <small>${tr('recommended')}</small>
-            </span>
+            <span class="topic-main"><b>${escapeHTML(titleOf(topic))}</b><small>${tr('recommended')}</small></span>
             <span class="topic-score">→</span>
           </button>`).join('')}</div>`
-      : `<div class="empty">${tr('noPlan')}
-          <br><button class="button primary small" style="margin-top:12px"
-            type="button" onclick="location.hash='sections'">${tr('sections')}</button>
-        </div>`}`;
+      : `<div class="empty">${tr('noPlan')}<br><button class="button primary small" style="margin-top:12px" type="button" onclick="location.hash='sections'">${tr('sections')}</button></div>`}`;
 
   app.querySelectorAll('[data-topic]').forEach(button => {
     button.addEventListener('click', () => openTopic(Number(button.dataset.topic)));
@@ -716,32 +757,22 @@ function renderPlan() {
 }
 
 function renderMistakes() {
-  const results = getProgress();
+  const results = getResults();
 
-  const topicsWithMistakes = topics
+  const items = topics
     .map((topic, index) => ({ topic, index, result: results[index] }))
     .filter(item => item.result?.mistakes?.length);
 
   app.innerHTML = `
-    <div class="welcome">
-      <div class="eyebrow">${tr('mistakes')}</div>
-      <h1>${tr('mistakes')}</h1>
-      <p>${tr('lesson')}</p>
-    </div>
-
-    ${topicsWithMistakes.length
-      ? topicsWithMistakes.map(({ topic, index, result }) => `
+    <div class="welcome"><div class="eyebrow">${tr('mistakes')}</div><h1>${tr('mistakes')}</h1></div>
+    ${items.length
+      ? items.map(({ topic, index, result }) => `
           <div class="card" style="margin-bottom:12px">
-            <h3>${escapeHTML(topicTitle(topic))}</h3>
-            <p class="muted">${result.score}% · ${result.mistakes.length} ${tr('wrong')}</p>
-            <button class="button outline small" type="button" data-topic="${index}">
-              ${tr('lesson')} →
-            </button>
+            <h3>${escapeHTML(titleOf(topic))}</h3>
+            <p class="muted">${result.score}% · ${result.mistakes.length} ${tr('mistakes')}</p>
+            <button class="button outline small" type="button" data-topic="${index}">${tr('lesson')} →</button>
           </div>`).join('')
-      : `<div class="empty">${tr('noMistakes')}
-          <br><button class="button primary small" style="margin-top:12px"
-            type="button" onclick="location.hash='sections'">${tr('sections')}</button>
-        </div>`}`;
+      : `<div class="empty">${tr('noMistakes')}<br><button class="button primary small" style="margin-top:12px" type="button" onclick="location.hash='sections'">${tr('sections')}</button></div>`}`;
 
   app.querySelectorAll('[data-topic]').forEach(button => {
     button.addEventListener('click', () => openTopic(Number(button.dataset.topic)));
@@ -749,43 +780,23 @@ function renderMistakes() {
 }
 
 function renderTeacher() {
-  const results = getProgress();
-  const resultRows = topics
+  const results = getResults();
+  const rows = topics
     .map((topic, index) => ({ topic, result: results[index] }))
     .filter(item => item.result);
 
   app.innerHTML = `
-    <div class="welcome">
-      <div class="eyebrow">${tr('teacher')}</div>
-      <h1>${tr('teacherTitle')}</h1>
-      <p>${tr('teacherNotice')}</p>
-    </div>
-
-    ${profile ? `
-      <div class="card">
-        <div class="section-heading">
-          <div>
-            <h3>${escapeHTML(profile.className)} · ${escapeHTML(profile.name)}</h3>
-            <p>${resultRows.length} / ${topics.length} ${tr('completed')}</p>
-          </div>
-        </div>
-        ${resultRows.length
-          ? resultRows.map(({ topic, result }) => `
-              <div class="topic-row">
-                <span class="topic-main"><b>${escapeHTML(topicTitle(topic))}</b></span>
-                <span class="topic-score">${result.score}%</span>
-              </div>`).join('')
-          : `<p class="muted">${tr('noResults')}</p>`}
-      </div>`
-      : `<div class="empty">${tr('noProfile')}
-          <br><button class="button primary small" style="margin-top:12px"
-            type="button" onclick="document.getElementById('loginDialog').showModal()">
-            ${tr('login')}
-          </button>
-        </div>`}`;
+    <div class="welcome"><div class="eyebrow">${tr('teacher')}</div><h1>${tr('classProgress')}</h1><p>${tr('serverNote')}</p></div>
+    ${profile
+      ? `<div class="card">
+          <h3>${escapeHTML(profile.className)} · ${escapeHTML(profile.name)}</h3>
+          ${rows.length
+            ? rows.map(({ topic, result }) => `<div class="topic-row"><span class="topic-main"><b>${escapeHTML(titleOf(topic))}</b></span><span class="topic-score">${result.score}%</span></div>`).join('')
+            : `<p class="muted">${tr('noResults')}</p>`}
+        </div>`
+      : `<div class="empty">${tr('createProfile')}<br><button class="button primary small" style="margin-top:12px" type="button" onclick="document.getElementById('loginDialog').showModal()">${tr('login')}</button></div>`}`;
 }
 
-setupLanguagePicker();
-setupProfileForm();
+setupProfile();
 window.addEventListener('hashchange', render);
 render();
