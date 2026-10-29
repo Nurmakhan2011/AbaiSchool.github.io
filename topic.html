@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f2">
+  <title>Тема — Abai Schools Алгебра</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html#home">
+        <span class="brand-mark">A</span>
+        <span><b>Abai Schools</b><small>МАТЕМАТИКА · 10–11 КЛАСС</small></span>
+      </a>
+      <div class="side-label">ОБУЧЕНИЕ</div>
+      <nav class="side-nav" aria-label="Навигация">
+        <a class="nav-link" href="index.html#home" data-page="home"><span>⌂</span><span data-i18n="overview">Обзор</span></a>
+        <a class="nav-link active" href="sections.html#sections" data-page="sections"><span>▦</span><span data-i18n="sections">Разделы</span><span class="nav-count">19</span></a>
+        <a class="nav-link" href="index.html#plan" data-page="plan"><span>◷</span><span data-i18n="myPlan">Мой план</span></a>
+        <a class="nav-link" href="index.html#mistakes" data-page="mistakes"><span>↻</span><span data-i18n="mistakes">Работа над ошибками</span></a>
+      </nav>
+      <div class="side-label teacher-label" data-i18n="classroom">КЛАСС</div>
+      <nav class="side-nav">
+        <a class="nav-link" href="index.html#teacher" data-page="teacher"><span>◫</span><span data-i18n="teacherView">Панель учителя</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="teacher-note"><span class="teacher-icon">✦</span><div><b>Преподаватель</b><small>Кадиргалиев Ерболат<br>Кудабаевич</small></div></div>
+        <div class="side-foot">ABAI SCHOOLS <span>·</span> 2026</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="breadcrumbs">Abai Schools <span>/</span> <a href="sections.html#sections" data-i18n="sections">Разделы</a> <span>/</span> <b>Тема</b></div>
+        <div class="top-actions">
+          <label class="language-picker"><span>文</span>
+            <select id="language" aria-label="Язык">
+              <option value="ru">Русский</option><option value="kk">Қазақша</option><option value="en">English</option>
+            </select>
+          </label>
+          <button class="user-pill" id="profileButton" type="button"><span class="avatar" id="avatar">?</span><span id="profileName">Войти</span><span class="chevron">⌄</span></button>
+        </div>
+      </header>
+      <div id="app" class="page-content"></div>
+      <footer class="site-footer"><span>Abai Schools Алгебра</span><span>Проект учеников · 2026</span></footer>
+    </main>
+  </div>
+
+  <dialog id="loginDialog" class="modal">
+    <form method="dialog" id="loginForm">
+      <button class="modal-close" value="cancel" aria-label="Закрыть">×</button>
+      <div class="eyebrow" data-i18n="profile">ПРОФИЛЬ УЧЕНИКА</div>
+      <h2 data-i18n="joinTitle">Начнём учиться</h2>
+      <p class="muted" data-i18n="joinText">Создайте профиль без электронной почты.</p>
+      <label class="field-label" for="studentName" data-i18n="yourName">Ваше имя</label>
+      <input id="studentName" required maxlength="40" placeholder="Например, Айдана">
+      <label class="field-label" for="className" data-i18n="yourClass">Класс</label>
+      <input id="className" required maxlength="30" placeholder="Например, 10А">
+      <button class="button primary full" type="submit" data-i18n="saveProfile">Сохранить профиль</button>
+      <p class="privacy-note" data-i18n="localNote">Данные профиля сохраняются на этом устройстве.</p>
+    </form>
+  </dialog>
+
+  <script>
+    // Откройте, например: topic.html?topic=0
+    // Номер темы соответствует её позиции в списке app.js, начиная с нуля.
+    const topicNumber = new URLSearchParams(location.search).get('topic') || '0';
+    history.replaceState(null, '', location.pathname + location.search + '#topic/' + topicNumber);
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
